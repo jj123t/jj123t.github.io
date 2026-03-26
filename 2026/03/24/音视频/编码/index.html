@@ -31,8 +31,10 @@
 <meta property="og:image" content="http://example.com/2026/03/24/%E9%9F%B3%E8%A7%86%E9%A2%91/%E7%BC%96%E7%A0%81/YUV420%E5%86%85%E5%AD%98%E8%A1%A8%E7%A4%BA.png">
 <meta property="og:image" content="http://example.com/2026/03/24/%E9%9F%B3%E8%A7%86%E9%A2%91/%E7%BC%96%E7%A0%81/bmp.png">
 <meta property="og:image" content="http://example.com/2026/03/24/%E9%9F%B3%E8%A7%86%E9%A2%91/%E7%BC%96%E7%A0%81/bmp%E8%A7%A3%E6%9E%90.png">
+<meta property="og:image" content="http://example.com/2026/03/24/%E9%9F%B3%E8%A7%86%E9%A2%91/%E7%BC%96%E7%A0%81/aac_adts.png">
+<meta property="og:image" content="http://example.com/2026/03/24/%E9%9F%B3%E8%A7%86%E9%A2%91/%E7%BC%96%E7%A0%81/aac_adts%E8%A7%A3%E6%9E%90.png">
 <meta property="article:published_time" content="2026-03-24T13:30:33.013Z">
-<meta property="article:modified_time" content="2026-03-25T13:31:52.896Z">
+<meta property="article:modified_time" content="2026-03-26T09:13:17.015Z">
 <meta property="article:author" content="John Doe">
 <meta property="article:tag" content="这是我写的一篇博客，写在第一份工作结束与第二份工作开始的窗口期。晚上突发奇想，我从事音视频传输工作已有8个月，是时候用文字记录下第一份工作的收获，于是我打开AI与书本...">
 <meta name="twitter:card" content="summary">
@@ -214,7 +216,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">Edited on</span>
-      <time title="Modified: 2026-03-25 21:31:52" itemprop="dateModified" datetime="2026-03-25T21:31:52+08:00">2026-03-25</time>
+      <time title="Modified: 2026-03-26 17:13:17" itemprop="dateModified" datetime="2026-03-26T17:13:17+08:00">2026-03-26</time>
     </span>
 
   
@@ -227,13 +229,14 @@
     
     
     <div class="post-body" itemprop="articleBody"><p>&ensp;&ensp;音频和视频是本质不同的两种媒体形式：视频聚焦于视觉画面的呈现，核心是“连续图像的高效传输与存储”；音频聚焦于声音的还原，核心是“模拟声波的数字化与压缩”。二者的特性差异，决定了工程师会采用不同的编码算法，在保证播放质量的前提下，最大限度降低传输带宽和存储成本，实现质量与成本的平衡。</p>
-<h1 id="视频"><a href="#视频" class="headerlink" title="视频"></a>视频</h1><h2 id="RGB与YUV"><a href="#RGB与YUV" class="headerlink" title="RGB与YUV"></a>RGB与YUV</h2><p>&ensp;&ensp;人类通过三种视锥细胞（数量少，感知颜色，红绿蓝）以及一种视杆细胞（数量多，感知亮度）去感知世界。在显示技术上，通常使用RGB编码表示颜色：通过控制三种基色光的亮度去组合表示不同颜色，一般在计算机内存中对每种基色的强度使用8bit二进制数存储表示（小端序，最小0，最大255），共2^24种组合，这种方法较为自然（因为只需要那三种发光半导体），但存在数据冗余大，传输带宽高的问题。颜色的另一种表示是YUV编码，即通过Y亮度与UV色度（蓝差：蓝色-亮度，红差：红色-亮度）组合表示颜色，二者的转换公式如下:<br>$$<br>\begin{aligned}<br>&amp;Y&#x3D;0.299R+0.587G+0.114B\\<br>&amp;U&#x3D;0.4921\times(B-Y)&#x3D;-0.147R-0.289G+0.436B\\<br>&amp;V&#x3D;0.8773\times(R-Y)&#x3D;0.615R-0.515G-0.100B\\<br>\end{aligned}<br>$$<br>$$<br>\begin{aligned}<br>&amp;R&#x3D;Y+1.370705\times(V-128)\\<br>&amp;G&#x3D;Y-0.337633\times(U-128)-0.698001\times(V-128)\\<br>&amp;B&#x3D;Y+1.732446\times(U-128)\\<br>\end{aligned}<br>$$<br>&ensp;&ensp;工程师利用人类对亮度较为敏感，对色度较为粗糙的特点，将RGB数据转为YUV表示（YUV444），并对其中色度信息进行压缩（YUV420，YUV422），亮度保持不变，节省部分带宽，例如，常见的YUV420，每四个Y共用一组U、V分量，实现压缩一半空间的效果。\</p>
-<img src="/2026/03/24/%E9%9F%B3%E8%A7%86%E9%A2%91/%E7%BC%96%E7%A0%81/YUV.png" class="" title="YUV444、YUV422、YUV420示意图"> \
-<img src="/2026/03/24/%E9%9F%B3%E8%A7%86%E9%A2%91/%E7%BC%96%E7%A0%81/YUV420%E5%86%85%E5%AD%98%E8%A1%A8%E7%A4%BA.png" class="" title="YUV420内存表示"> \
+<h1 id="视频"><a href="#视频" class="headerlink" title="视频"></a>视频</h1><h2 id="RGB与YUV"><a href="#RGB与YUV" class="headerlink" title="RGB与YUV"></a>RGB与YUV</h2><p>&ensp;&ensp;人类通过三种视锥细胞（数量少，感知颜色，红绿蓝）以及一种视杆细胞（数量多，感知亮度）去感知世界。在显示技术上，通常使用RGB编码表示颜色：通过控制三种基色光的亮度去组合表示不同颜色，一般在计算机内存中对每种基色的强度使用8bit二进制数存储表示（小端序，最小0，最大255），共2^24种组合，这种方法较为自然（因为只需要那三种发光半导体），但存在数据冗余大，传输带宽高的问题。颜色的另一种表示是YUV编码，即通过Y亮度与UV色度（蓝差：蓝色-亮度，红差：红色-亮度）组合表示颜色，二者的转换公式如下:<br>$$<br>\begin{aligned}<br>&amp;Y&#x3D;0.299R+0.587G+0.114B\\<br>&amp;U&#x3D;0.4921\times(B-Y)&#x3D;-0.147R-0.289G+0.436B\\<br>&amp;V&#x3D;0.8773\times(R-Y)&#x3D;0.615R-0.515G-0.100B\\<br>\end{aligned}<br>$$<br>$$<br>\begin{aligned}<br>&amp;R&#x3D;Y+1.370705\times(V-128)\\<br>&amp;G&#x3D;Y-0.337633\times(U-128)-0.698001\times(V-128)\\<br>&amp;B&#x3D;Y+1.732446\times(U-128)\\<br>\end{aligned}<br>$$<br>&ensp;&ensp;工程师利用人类对亮度较为敏感，对色度较为粗糙的特点，将RGB数据转为YUV表示（YUV444），并对其中色度信息进行压缩（YUV420，YUV422），亮度保持不变，节省部分带宽，例如，常见的YUV420，每四个Y共用一组U、V分量，实现压缩一半空间的效果。</p>
+<img src="/2026/03/24/%E9%9F%B3%E8%A7%86%E9%A2%91/%E7%BC%96%E7%A0%81/YUV.png" class="" title="YUV444、YUV422、YUV420示意图"> 
+<img src="/2026/03/24/%E9%9F%B3%E8%A7%86%E9%A2%91/%E7%BC%96%E7%A0%81/YUV420%E5%86%85%E5%AD%98%E8%A1%A8%E7%A4%BA.png" class="" title="YUV420内存表示"> 
+
 <p>&ensp;&ensp;因此，结合RGB与YUV的特点，通常视频传输与显示的流程是：图像（RGB存储）→ 编码前转换为YUV（通常为YUV420）→ 压缩编码后传输 → 解码后还原为YUV → 显示驱动程序转换为RGB → 屏幕呈现。<br>&ensp;&ensp;研究表明，人类对0.1-0.4内的画面微小变化并不敏感（视觉暂留），因此工程师通过将图片连续播放实现视频，比如电影通常每秒播放24张图片（fps：frame per second，每秒播放的图像数量）。<br>&ensp;&ensp;对于单一图片，使用YUV编码占用的空间、带宽是大多数计算机可以接受的，但对于视频，则需要进一步编码节省空间，以分辨率为$1920\times1080$、时长60分钟、FPS为24帧的电影为例，单一原始图像（RGB）占用空间为$1920\times1080\times3&#x3D;6MB$，即使经过YUV压缩50%，依旧需要$3MB$，整部电影的存储需要$253GB$，这是难以接受的，因此工程师从时间、空间角度进一步编码节省空间。</p>
 <h2 id="图像编码"><a href="#图像编码" class="headerlink" title="图像编码"></a>图像编码</h2><p>&ensp;&ensp;首先讨论单张图像如何被压缩的问题。常见的图像格式如 BMP、JPEG、PNG，本质上代表了三种不同的压缩思路：无压缩、有损压缩、无损压缩。</p>
-<h3 id="BMP"><a href="#BMP" class="headerlink" title="BMP"></a>BMP</h3><p>&ensp;&ensp;BMP（Bitmap）是一种最简单的图像格式，其核心特点是几乎不做压缩，直接按像素存储RGB数据。例如一张$1920\times1080$的图片，如果每个像素使用24bit（RGB各8bit），那么大小约为：$1920\times1080\times3≈6MB$\</p>
-<img src="/2026/03/24/%E9%9F%B3%E8%A7%86%E9%A2%91/%E7%BC%96%E7%A0%81/bmp.png" class="" title="bmp协议"> \
+<h3 id="BMP"><a href="#BMP" class="headerlink" title="BMP"></a>BMP</h3><p>&ensp;&ensp;BMP（Bitmap）是一种最简单的图像格式，其核心特点是几乎不做压缩，直接按像素存储RGB数据。例如一张$1920\times1080$的图片，如果每个像素使用24bit（RGB各8bit），那么大小约为：$1920\times1080\times3≈6MB$</p>
+<img src="/2026/03/24/%E9%9F%B3%E8%A7%86%E9%A2%91/%E7%BC%96%E7%A0%81/bmp.png" class="" title="bmp协议"> 
 <img src="/2026/03/24/%E9%9F%B3%E8%A7%86%E9%A2%91/%E7%BC%96%E7%A0%81/bmp%E8%A7%A3%E6%9E%90.png" class="" title="bmp解析示例">
 
 <h3 id="JPG-JPEG"><a href="#JPG-JPEG" class="headerlink" title="JPG&amp;JPEG"></a>JPG&amp;JPEG</h3><p>&ensp;&ensp;JPEG（或 JPG）是最常见的图像格式之一，其核心思想是：利用人眼对高频信息（细节）不敏感，对低频信息（整体结构）敏感的特点进行压缩。其典型编码流程如下：<br>&ensp;&ensp;&ensp;RGB→YUV（通常为 YUV420）<br>&ensp;&ensp;&ensp;图像分块（通常为 8×8）<br>&ensp;&ensp;&ensp;对每个块进行离散余弦变换（DCT）<br>&ensp;&ensp;&ensp;量化（Quantization，核心有损步骤）<br>&ensp;&ensp;&ensp;熵编码（如 Huffman 编码）<br>其中最关键的是“量化”：高频分量被大幅压缩甚至丢弃，低频分量保留较好</p>
@@ -269,19 +272,25 @@
 </ul>
 <h3 id="VP8、VP9"><a href="#VP8、VP9" class="headerlink" title="VP8、VP9"></a>VP8、VP9</h3><p>VP8是VP系列的基础版本，压缩效率与H264接近，核心优势是“开源免费、编码复杂度低”，主要应用于WebRTC（实时通信，如视频通话）、Chrome浏览器、YouTube的低清晰度视频等场景。<br>VP8的封装格式为WebM，常与OPUS音频编码搭配，组成开源的音视频封装方案，适合轻量级、低延迟的场景。<br>VP9是VP8的升级版本，压缩效率接近H265，在相同画质下，比H264压缩比高50%左右，同时编码复杂度低于H265和AV1。</p>
 <h1 id="音频"><a href="#音频" class="headerlink" title="音频"></a>音频</h1><p>&ensp;&ensp;音频的本质是“模拟声波的数字化”——现实中的声音（如人声、音乐）是连续的模拟信号，需要通过“采样、量化、编码”三个步骤，转换为数字信号，才能被计算机存储和传输。音频编码的核心，是在保证声音还原度的前提下，去除声音信号中的冗余，降低带宽和存储成本。</p>
-<h2 id="PCM"><a href="#PCM" class="headerlink" title="PCM"></a>PCM</h2><p>&ensp;&ensp;PCM（脉冲编码调制）是最基础、最原始的数字音频格式，是所有音频编码的“源头”——模拟声波通过PCM转换后，得到无压缩的数字音频数据，还原度100%，但数据量极大。<br>PCM的核心参数（决定音频质量和数据量）：</p>
+<h2 id="PCM"><a href="#PCM" class="headerlink" title="PCM"></a>PCM</h2><p>&ensp;&ensp;声音的本质是物体振动产生的波，计算机无法处理声波的连续信号，需要在时间轴上离散化，每隔固定时间取样（T&#x3D;采样间隔，采样率&#x3D;1&#x2F;T），经过编码（16bit、24bit）后的二进制序列即为PCM（脉冲编码调制），PCM是最基础、最原始的数字音频格式，是所有音频编码的源头。<br>&ensp;&ensp;PCM的核心参数（决定音频质量和数据量）：</p>
 <ul>
-<li>采样率：单位时间内对模拟声波的采样次数，单位为Hz。采样率越高，声音的还原度越高，常见采样率：44.1kHz（CD音质）、48kHz（专业音频、视频配套音频）、96kHz（高清音频）；</li>
-<li>位深：每次采样后，用多少bit二进制数表示采样值，位深越高，声音的动态范围越大（音量变化的层次感），常见位深：16bit（主流音质）、24bit（高清音质）；</li>
-<li>声道数：声音的通道数量，常见声道：单声道（如电话）、双声道（立体声，如耳机）、5.1声道（环绕声，如家庭影院）。</li>
+<li>采样率（sampleRate）：单位时间内对模拟声波的采样次数，单位为Hz。采样率越高，声音的还原度越高，常见采样率：44.1kHz（CD音质）、48kHz（专业音频、视频配套音频）、96kHz（高清音频）；</li>
+<li>位深（depth）：每次采样后，用多少bit二进制数表示采样值，位深越高，声音的动态范围越大（音量变化的层次感），常见位深：16bit（主流音质）、24bit（高清音质）；</li>
+<li>声道数（channels）：声音的通道数量，常见声道：单声道（如电话）、双声道（立体声，如耳机）、5.1声道（环绕声，如家庭影院）。</li>
 </ul>
-<h2 id="AAC"><a href="#AAC" class="headerlink" title="AAC"></a>AAC</h2><p>&ensp;&ensp;AAC（高级音频编码）是由ISO和ITU-T联合制定的有损音频编码标准，是MP3的升级版本，核心优势是“高压缩比、高音质”——在相同压缩比下，AAC的音质比MP3好30%左右；在相同音质下，AAC的压缩比是MP3的2倍以上。<br>AAC的核心编码原理：基于“心理声学模型”，去除人耳无法感知的声音信号（如高频噪音、声音掩蔽效应），仅保留人耳能听到的信号，从而实现高效压缩。<br>AAC有多种规格，适配不同场景：</p>
+<p>&ensp;&ensp;根据音频的基础信息可以计算音频的$码率&#x3D;采样率\times位深\times声道数$，例如48kHz采样率、16bit位深、双声道的音频码率为1.536Mbps。</p>
+<h2 id="AAC"><a href="#AAC" class="headerlink" title="AAC"></a>AAC</h2><p>&ensp;&ensp;AAC（高级音频编码）是目前广泛流行的音频编码标准，其通过将音频原始数据分帧（每1024样本为一帧，因此AAC一帧的时长为$1024&#x2F;采样率$）、MDCT离散余弦变换（当窗口较长时延时较高，这就是为什么AAC延时高于OPUS的原因）、建立心理声学模型、量化编码、封装处理后得到AAC数据。<br>&ensp;&ensp;AAC有多种规格，适配不同场景：</p>
 <ul>
-<li>AAC-LC（低复杂度）：最常用的规格，压缩比适中，音质清晰，适用于手机音乐、短视频、直播等场景；</li>
-<li>HE-AAC（高效AAC）：支持低比特率（如64kbps以下），适合网络条件较差的场景（如手机彩铃、语音消息）；</li>
-<li>AAC-ELD（增强低延迟）：延迟极低（小于20ms），适用于实时通信场景（如视频通话、语音直播）。</li>
+<li>AAC-LC（低复杂度）：最常用的规格，压缩比适中，音质清晰，适用于手机音乐、短视频、直播等场景，一般直播使用96-128kbps码率，点播使用128-192kbps码率。</li>
+<li>HE-AAC（高效AAC）：支持低比特率（如64kbps以下），适合网络条件较差的场景（如手机彩铃、语音消息），一般使用16-48kbps码率。</li>
+<li>AAC-ELD（增强低延迟）：延迟极低（小于20ms），适用于实时通信场景（如视频通话、语音直播），一般使用32-128kbps码率。</li>
 </ul>
-<h3 id="Adts头"><a href="#Adts头" class="headerlink" title="Adts头"></a>Adts头</h3><p>&ensp;&ensp;AAC编码后的裸流（ADTS帧），需要通过封装格式组织，才能被播放器识别，其中最常用的两种是Adts头和LATM，核心区别在于“是否包含完整的头部信息”：<br>Adts头是AAC的“独立帧封装”，每个AAC帧都包含一个完整的Adts头（7~9字节），头部信息包括：采样率、位深、声道数、帧长度、编码规格等。<br>优势：帧独立，无需依赖外部容器（如MP4），可单独播放，适合流式传输（如直播、广播）；<br>应用场景：直播音频、广播、单独的AAC音频文件（.aac）。</p>
+<p>&ensp;&ensp;AAC编码后的裸流（ADTS帧），需要通过封装格式组织，才能被播放器识别，其中最常用的两种是Adts头和LATM，核心区别在于“是否包含完整的头部信息”。</p>
+<h3 id="Adts头"><a href="#Adts头" class="headerlink" title="Adts头"></a>Adts头</h3><p>&ensp;&ensp;Adts头是AAC的“独立帧封装”，每个AAC帧都包含一个完整的Adts头（7~9字节），头部信息包括：采样率、位深、声道数、帧长度、编码规格等。</p>
+<img src="/2026/03/24/%E9%9F%B3%E8%A7%86%E9%A2%91/%E7%BC%96%E7%A0%81/aac_adts.png" class="" title="Adts"> 
+<img src="/2026/03/24/%E9%9F%B3%E8%A7%86%E9%A2%91/%E7%BC%96%E7%A0%81/aac_adts%E8%A7%A3%E6%9E%90.png" class="" title="Adts解析"> 
+
+<p>&ensp;&ensp;优势：帧独立，无需依赖外部容器（如MP4），可单独播放，适合流式传输（如直播、广播）。<br>&ensp;&ensp;应用场景：直播音频、广播、单独的AAC音频文件（.aac）。</p>
 <h3 id="LATM"><a href="#LATM" class="headerlink" title="LATM"></a>LATM</h3><p>&ensp;&ensp;LATM是AAC的“低开销封装”，头部信息（LATM头）仅在音频流的开头出现一次，后续的AAC帧不再包含头部，仅存储音频数据，开销更低。<br>优势：数据紧凑，节省带宽，适合封装在视频容器中（如MP4、MKV），与视频同步播放；</p>
 <h2 id="OPUS"><a href="#OPUS" class="headerlink" title="OPUS"></a>OPUS</h2><p>&ensp;&ensp;OPUS是由IETF（互联网工程任务组）制定的开源、免费音频编码标准，核心定位是“实时通信”，兼顾低延迟、高音质、高压缩比，是目前实时音频场景的首选编码。<br>OPUS的核心优势，也是其区别于AAC、MP3的关键：</p>
 <ul>
