@@ -22,32 +22,25 @@
 
     <meta name="description" content="&ensp;&ensp;音频和视频是本质不同的两种媒体形式：视频聚焦于视觉画面的呈现，核心是“连续图像的高效传输与存储”；音频聚焦于声音的还原，核心是“模拟声波的数字化与压缩”。二者的特性差异，决定了工程师会采用不同的编码算法，在保证播放质量的前提下，最大限度降低传输带宽和存储成本，实现质量与成本的平衡。 视频RGB与YUV&ensp;&ensp;人类通过三种视锥细胞（数量少，感知颜色，红绿蓝）以">
 <meta property="og:type" content="article">
-<meta property="og:title" content="编码">
-<meta property="og:url" content="http://example.com/2026/03/24/%E9%9F%B3%E8%A7%86%E9%A2%91/%E7%BC%96%E7%A0%81/index.html">
+<meta property="og:title" content="音视频基础编码与协议">
+<meta property="og:url" content="http://example.com/2026/03/24/%E9%9F%B3%E8%A7%86%E9%A2%91/%E9%9F%B3%E8%A7%86%E9%A2%91%E5%9F%BA%E7%A1%80%E7%BC%96%E7%A0%81%E4%B8%8E%E5%8D%8F%E8%AE%AE/index.html">
 <meta property="og:site_name" content="Hexo">
 <meta property="og:description" content="&ensp;&ensp;音频和视频是本质不同的两种媒体形式：视频聚焦于视觉画面的呈现，核心是“连续图像的高效传输与存储”；音频聚焦于声音的还原，核心是“模拟声波的数字化与压缩”。二者的特性差异，决定了工程师会采用不同的编码算法，在保证播放质量的前提下，最大限度降低传输带宽和存储成本，实现质量与成本的平衡。 视频RGB与YUV&ensp;&ensp;人类通过三种视锥细胞（数量少，感知颜色，红绿蓝）以">
 <meta property="og:locale" content="en_US">
-<meta property="og:image" content="http://example.com/2026/03/24/%E9%9F%B3%E8%A7%86%E9%A2%91/%E7%BC%96%E7%A0%81/YUV.png">
-<meta property="og:image" content="http://example.com/2026/03/24/%E9%9F%B3%E8%A7%86%E9%A2%91/%E7%BC%96%E7%A0%81/YUV420%E5%86%85%E5%AD%98%E8%A1%A8%E7%A4%BA.png">
-<meta property="og:image" content="http://example.com/2026/03/24/%E9%9F%B3%E8%A7%86%E9%A2%91/%E7%BC%96%E7%A0%81/bmp.png">
-<meta property="og:image" content="http://example.com/2026/03/24/%E9%9F%B3%E8%A7%86%E9%A2%91/%E7%BC%96%E7%A0%81/bmp%E8%A7%A3%E6%9E%90.png">
-<meta property="og:image" content="http://example.com/2026/03/24/%E9%9F%B3%E8%A7%86%E9%A2%91/%E7%BC%96%E7%A0%81/aac_adts.png">
-<meta property="og:image" content="http://example.com/2026/03/24/%E9%9F%B3%E8%A7%86%E9%A2%91/%E7%BC%96%E7%A0%81/aac_adts%E8%A7%A3%E6%9E%90.png">
 <meta property="article:published_time" content="2026-03-24T13:30:33.013Z">
-<meta property="article:modified_time" content="2026-03-26T09:13:17.015Z">
+<meta property="article:modified_time" content="2026-03-28T13:54:53.331Z">
 <meta property="article:author" content="John Doe">
 <meta property="article:tag" content="这是我写的一篇博客，写在第一份工作结束与第二份工作开始的窗口期。晚上突发奇想，我从事音视频传输工作已有8个月，是时候用文字记录下第一份工作的收获，于是我打开AI与书本...">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http://example.com/2026/03/24/%E9%9F%B3%E8%A7%86%E9%A2%91/%E7%BC%96%E7%A0%81/YUV.png">
 
 
-<link rel="canonical" href="http://example.com/2026/03/24/%E9%9F%B3%E8%A7%86%E9%A2%91/%E7%BC%96%E7%A0%81/">
+<link rel="canonical" href="http://example.com/2026/03/24/%E9%9F%B3%E8%A7%86%E9%A2%91/%E9%9F%B3%E8%A7%86%E9%A2%91%E5%9F%BA%E7%A1%80%E7%BC%96%E7%A0%81%E4%B8%8E%E5%8D%8F%E8%AE%AE/">
 
 
-<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"en","comments":true,"permalink":"http://example.com/2026/03/24/%E9%9F%B3%E8%A7%86%E9%A2%91/%E7%BC%96%E7%A0%81/","path":"2026/03/24/音视频/编码/","title":"编码"}</script>
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"en","comments":true,"permalink":"http://example.com/2026/03/24/%E9%9F%B3%E8%A7%86%E9%A2%91/%E9%9F%B3%E8%A7%86%E9%A2%91%E5%9F%BA%E7%A1%80%E7%BC%96%E7%A0%81%E4%B8%8E%E5%8D%8F%E8%AE%AE/","path":"2026/03/24/音视频/音视频基础编码与协议/","title":"音视频基础编码与协议"}</script>
 
 <script class="next-config" data-name="calendar" type="application/json">""</script>
-<title>编码 | Hexo</title>
+<title>音视频基础编码与协议 | Hexo</title>
   
 
 
@@ -135,7 +128,7 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%A7%86%E9%A2%91"><span class="nav-number">1.</span> <span class="nav-text">视频</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#RGB%E4%B8%8EYUV"><span class="nav-number">1.1.</span> <span class="nav-text">RGB与YUV</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9B%BE%E5%83%8F%E7%BC%96%E7%A0%81"><span class="nav-number">1.2.</span> <span class="nav-text">图像编码</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#BMP"><span class="nav-number">1.2.1.</span> <span class="nav-text">BMP</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#JPG-JPEG"><span class="nav-number">1.2.2.</span> <span class="nav-text">JPG&amp;JPEG</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#PNG"><span class="nav-number">1.2.3.</span> <span class="nav-text">PNG</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%A7%86%E9%A2%91%E7%BC%96%E7%A0%81"><span class="nav-number">1.3.</span> <span class="nav-text">视频编码</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#H264"><span class="nav-number">1.3.1.</span> <span class="nav-text">H264</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Nvcc%E4%B8%8EAnnexB"><span class="nav-number">1.3.1.1.</span> <span class="nav-text">Nvcc与AnnexB</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#H265"><span class="nav-number">1.3.2.</span> <span class="nav-text">H265</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#AV1"><span class="nav-number">1.3.3.</span> <span class="nav-text">AV1</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#VP8%E3%80%81VP9"><span class="nav-number">1.3.4.</span> <span class="nav-text">VP8、VP9</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E9%9F%B3%E9%A2%91"><span class="nav-number">2.</span> <span class="nav-text">音频</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#PCM"><span class="nav-number">2.1.</span> <span class="nav-text">PCM</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#AAC"><span class="nav-number">2.2.</span> <span class="nav-text">AAC</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Adts%E5%A4%B4"><span class="nav-number">2.2.1.</span> <span class="nav-text">Adts头</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#LATM"><span class="nav-number">2.2.2.</span> <span class="nav-text">LATM</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#OPUS"><span class="nav-number">2.3.</span> <span class="nav-text">OPUS</span></a></li></ol></li></ol></div>
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%A7%86%E9%A2%91"><span class="nav-number">1.</span> <span class="nav-text">视频</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#RGB%E4%B8%8EYUV"><span class="nav-number">1.1.</span> <span class="nav-text">RGB与YUV</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9B%BE%E5%83%8F%E7%BC%96%E7%A0%81"><span class="nav-number">1.2.</span> <span class="nav-text">图像编码</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#BMP"><span class="nav-number">1.2.1.</span> <span class="nav-text">BMP</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#JPG-JPEG"><span class="nav-number">1.2.2.</span> <span class="nav-text">JPG&amp;JPEG</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#PNG"><span class="nav-number">1.2.3.</span> <span class="nav-text">PNG</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%A7%86%E9%A2%91%E7%BC%96%E7%A0%81"><span class="nav-number">1.3.</span> <span class="nav-text">视频编码</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#H264"><span class="nav-number">1.3.1.</span> <span class="nav-text">H264</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Nvcc%E4%B8%8EAnnexB"><span class="nav-number">1.3.1.1.</span> <span class="nav-text">Nvcc与AnnexB</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#H265"><span class="nav-number">1.3.2.</span> <span class="nav-text">H265</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#AV1"><span class="nav-number">1.3.3.</span> <span class="nav-text">AV1</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#VP8%E3%80%81VP9"><span class="nav-number">1.3.4.</span> <span class="nav-text">VP8、VP9</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E9%9F%B3%E9%A2%91"><span class="nav-number">2.</span> <span class="nav-text">音频</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#PCM"><span class="nav-number">2.1.</span> <span class="nav-text">PCM</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#AAC"><span class="nav-number">2.2.</span> <span class="nav-text">AAC</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Adts%E5%A4%B4"><span class="nav-number">2.2.1.</span> <span class="nav-text">Adts头</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#LATM-LOAS"><span class="nav-number">2.2.2.</span> <span class="nav-text">LATM&#x2F;LOAS</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#OPUS"><span class="nav-number">2.3.</span> <span class="nav-text">OPUS</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#OGG-OPUS"><span class="nav-number">2.3.1.</span> <span class="nav-text">OGG OPUS</span></a></li></ol></li></ol></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -180,7 +173,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2026/03/24/%E9%9F%B3%E8%A7%86%E9%A2%91/%E7%BC%96%E7%A0%81/">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2026/03/24/%E9%9F%B3%E8%A7%86%E9%A2%91/%E9%9F%B3%E8%A7%86%E9%A2%91%E5%9F%BA%E7%A1%80%E7%BC%96%E7%A0%81%E4%B8%8E%E5%8D%8F%E8%AE%AE/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -193,12 +186,12 @@
     </span>
 
     <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="编码 | Hexo">
+      <meta itemprop="name" content="音视频基础编码与协议 | Hexo">
       <meta itemprop="description" content="">
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          编码
+          音视频基础编码与协议
         </h1>
 
         <div class="post-meta-container">
@@ -216,7 +209,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">Edited on</span>
-      <time title="Modified: 2026-03-26 17:13:17" itemprop="dateModified" datetime="2026-03-26T17:13:17+08:00">2026-03-26</time>
+      <time title="Modified: 2026-03-28 21:54:53" itemprop="dateModified" datetime="2026-03-28T21:54:53+08:00">2026-03-28</time>
     </span>
 
   
@@ -230,14 +223,14 @@
     
     <div class="post-body" itemprop="articleBody"><p>&ensp;&ensp;音频和视频是本质不同的两种媒体形式：视频聚焦于视觉画面的呈现，核心是“连续图像的高效传输与存储”；音频聚焦于声音的还原，核心是“模拟声波的数字化与压缩”。二者的特性差异，决定了工程师会采用不同的编码算法，在保证播放质量的前提下，最大限度降低传输带宽和存储成本，实现质量与成本的平衡。</p>
 <h1 id="视频"><a href="#视频" class="headerlink" title="视频"></a>视频</h1><h2 id="RGB与YUV"><a href="#RGB与YUV" class="headerlink" title="RGB与YUV"></a>RGB与YUV</h2><p>&ensp;&ensp;人类通过三种视锥细胞（数量少，感知颜色，红绿蓝）以及一种视杆细胞（数量多，感知亮度）去感知世界。在显示技术上，通常使用RGB编码表示颜色：通过控制三种基色光的亮度去组合表示不同颜色，一般在计算机内存中对每种基色的强度使用8bit二进制数存储表示（小端序，最小0，最大255），共2^24种组合，这种方法较为自然（因为只需要那三种发光半导体），但存在数据冗余大，传输带宽高的问题。颜色的另一种表示是YUV编码，即通过Y亮度与UV色度（蓝差：蓝色-亮度，红差：红色-亮度）组合表示颜色，二者的转换公式如下:<br>$$<br>\begin{aligned}<br>&amp;Y&#x3D;0.299R+0.587G+0.114B\\<br>&amp;U&#x3D;0.4921\times(B-Y)&#x3D;-0.147R-0.289G+0.436B\\<br>&amp;V&#x3D;0.8773\times(R-Y)&#x3D;0.615R-0.515G-0.100B\\<br>\end{aligned}<br>$$<br>$$<br>\begin{aligned}<br>&amp;R&#x3D;Y+1.370705\times(V-128)\\<br>&amp;G&#x3D;Y-0.337633\times(U-128)-0.698001\times(V-128)\\<br>&amp;B&#x3D;Y+1.732446\times(U-128)\\<br>\end{aligned}<br>$$<br>&ensp;&ensp;工程师利用人类对亮度较为敏感，对色度较为粗糙的特点，将RGB数据转为YUV表示（YUV444），并对其中色度信息进行压缩（YUV420，YUV422），亮度保持不变，节省部分带宽，例如，常见的YUV420，每四个Y共用一组U、V分量，实现压缩一半空间的效果。</p>
-<img src="/2026/03/24/%E9%9F%B3%E8%A7%86%E9%A2%91/%E7%BC%96%E7%A0%81/YUV.png" class="" title="YUV444、YUV422、YUV420示意图"> 
-<img src="/2026/03/24/%E9%9F%B3%E8%A7%86%E9%A2%91/%E7%BC%96%E7%A0%81/YUV420%E5%86%85%E5%AD%98%E8%A1%A8%E7%A4%BA.png" class="" title="YUV420内存表示"> 
+ 
+ 
 
 <p>&ensp;&ensp;因此，结合RGB与YUV的特点，通常视频传输与显示的流程是：图像（RGB存储）→ 编码前转换为YUV（通常为YUV420）→ 压缩编码后传输 → 解码后还原为YUV → 显示驱动程序转换为RGB → 屏幕呈现。<br>&ensp;&ensp;研究表明，人类对0.1-0.4内的画面微小变化并不敏感（视觉暂留），因此工程师通过将图片连续播放实现视频，比如电影通常每秒播放24张图片（fps：frame per second，每秒播放的图像数量）。<br>&ensp;&ensp;对于单一图片，使用YUV编码占用的空间、带宽是大多数计算机可以接受的，但对于视频，则需要进一步编码节省空间，以分辨率为$1920\times1080$、时长60分钟、FPS为24帧的电影为例，单一原始图像（RGB）占用空间为$1920\times1080\times3&#x3D;6MB$，即使经过YUV压缩50%，依旧需要$3MB$，整部电影的存储需要$253GB$，这是难以接受的，因此工程师从时间、空间角度进一步编码节省空间。</p>
 <h2 id="图像编码"><a href="#图像编码" class="headerlink" title="图像编码"></a>图像编码</h2><p>&ensp;&ensp;首先讨论单张图像如何被压缩的问题。常见的图像格式如 BMP、JPEG、PNG，本质上代表了三种不同的压缩思路：无压缩、有损压缩、无损压缩。</p>
 <h3 id="BMP"><a href="#BMP" class="headerlink" title="BMP"></a>BMP</h3><p>&ensp;&ensp;BMP（Bitmap）是一种最简单的图像格式，其核心特点是几乎不做压缩，直接按像素存储RGB数据。例如一张$1920\times1080$的图片，如果每个像素使用24bit（RGB各8bit），那么大小约为：$1920\times1080\times3≈6MB$</p>
-<img src="/2026/03/24/%E9%9F%B3%E8%A7%86%E9%A2%91/%E7%BC%96%E7%A0%81/bmp.png" class="" title="bmp协议"> 
-<img src="/2026/03/24/%E9%9F%B3%E8%A7%86%E9%A2%91/%E7%BC%96%E7%A0%81/bmp%E8%A7%A3%E6%9E%90.png" class="" title="bmp解析示例">
+ 
+
 
 <h3 id="JPG-JPEG"><a href="#JPG-JPEG" class="headerlink" title="JPG&amp;JPEG"></a>JPG&amp;JPEG</h3><p>&ensp;&ensp;JPEG（或 JPG）是最常见的图像格式之一，其核心思想是：利用人眼对高频信息（细节）不敏感，对低频信息（整体结构）敏感的特点进行压缩。其典型编码流程如下：<br>&ensp;&ensp;&ensp;RGB→YUV（通常为 YUV420）<br>&ensp;&ensp;&ensp;图像分块（通常为 8×8）<br>&ensp;&ensp;&ensp;对每个块进行离散余弦变换（DCT）<br>&ensp;&ensp;&ensp;量化（Quantization，核心有损步骤）<br>&ensp;&ensp;&ensp;熵编码（如 Huffman 编码）<br>其中最关键的是“量化”：高频分量被大幅压缩甚至丢弃，低频分量保留较好</p>
 <h3 id="PNG"><a href="#PNG" class="headerlink" title="PNG"></a>PNG</h3><p>&ensp;&ensp;PNG是一种无损压缩格式，其核心思路是：通过预测 + 差分 + 压缩（DEFLATE）减少冗余数据，相比JPEG不丢失任何信息，支持透明通道（Alpha）<br>但代价是压缩率不如 JPEG（对于照片），编码复杂度较高</p>
@@ -287,11 +280,14 @@
 </ul>
 <p>&ensp;&ensp;AAC编码后的裸流（ADTS帧），需要通过封装格式组织，才能被播放器识别，其中最常用的两种是Adts头和LATM，核心区别在于“是否包含完整的头部信息”。</p>
 <h3 id="Adts头"><a href="#Adts头" class="headerlink" title="Adts头"></a>Adts头</h3><p>&ensp;&ensp;Adts头是AAC的“独立帧封装”，每个AAC帧都包含一个完整的Adts头（7~9字节），头部信息包括：采样率、位深、声道数、帧长度、编码规格等。</p>
-<img src="/2026/03/24/%E9%9F%B3%E8%A7%86%E9%A2%91/%E7%BC%96%E7%A0%81/aac_adts.png" class="" title="Adts"> 
-<img src="/2026/03/24/%E9%9F%B3%E8%A7%86%E9%A2%91/%E7%BC%96%E7%A0%81/aac_adts%E8%A7%A3%E6%9E%90.png" class="" title="Adts解析"> 
+ 
+ 
 
 <p>&ensp;&ensp;优势：帧独立，无需依赖外部容器（如MP4），可单独播放，适合流式传输（如直播、广播）。<br>&ensp;&ensp;应用场景：直播音频、广播、单独的AAC音频文件（.aac）。</p>
-<h3 id="LATM"><a href="#LATM" class="headerlink" title="LATM"></a>LATM</h3><p>&ensp;&ensp;LATM是AAC的“低开销封装”，头部信息（LATM头）仅在音频流的开头出现一次，后续的AAC帧不再包含头部，仅存储音频数据，开销更低。<br>优势：数据紧凑，节省带宽，适合封装在视频容器中（如MP4、MKV），与视频同步播放；</p>
+<h3 id="LATM-LOAS"><a href="#LATM-LOAS" class="headerlink" title="LATM&#x2F;LOAS"></a>LATM&#x2F;LOAS</h3><p>&ensp;&ensp;LATM是AAC的“低开销封装”，头部信息（LATM头）仅在音频流的开头出现一次，后续的AAC帧不再包含头部，仅存储音频数据，开销更低。</p>
+ 
+
+<p>优势：数据紧凑，节省带宽，适合封装在视频容器中（如MP4、MKV），与视频同步播放；</p>
 <h2 id="OPUS"><a href="#OPUS" class="headerlink" title="OPUS"></a>OPUS</h2><p>&ensp;&ensp;OPUS是由IETF（互联网工程任务组）制定的开源、免费音频编码标准，核心定位是“实时通信”，兼顾低延迟、高音质、高压缩比，是目前实时音频场景的首选编码。<br>OPUS的核心优势，也是其区别于AAC、MP3的关键：</p>
 <ul>
 <li>低延迟：编码延迟仅5<del>20ms，远低于AAC（20</del>100ms），适合实时通信（如视频通话、语音直播、游戏语音）；</li>
@@ -299,7 +295,9 @@
 <li>全场景适配：既能支持低比特率的语音（如电话音质），也能支持高比特率的音乐（如无损音质），适配语音、音乐、直播等多种场景；</li>
 <li>开源免费：无专利授权费用，兼容性强，支持所有主流平台（Windows、Android、iOS、Linux）。</li>
 </ul>
-
+<h3 id="OGG-OPUS"><a href="#OGG-OPUS" class="headerlink" title="OGG OPUS"></a>OGG OPUS</h3><p>&ensp;&ensp;OGG OPUS 是将 OPUS 编码后的音频数据封装在 Ogg 容器中的一种格式（Flv不支持OPUS），是目前最常见的 Opus 文件&#x2F;流媒体封装方式之一（文件后缀通常为 .opus 或 .ogg）。</p>
+ 
+ 
     </div>
 
     
